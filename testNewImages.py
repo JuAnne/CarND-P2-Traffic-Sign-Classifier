@@ -44,7 +44,6 @@ print('test_images_normalized shape:', test_images_normalized.shape)
 ### Calculate the accuracy for these 5 new images. 
 ### For example, if the model predicted 1 out of 5 signs correctly, it's 20% accurate on these new images.
 
-test_labels = [1, 2, 4, 13, 38]
 test_labels = [1, 11, 12, 18, 38]
 
 with tf.Session() as sess:
