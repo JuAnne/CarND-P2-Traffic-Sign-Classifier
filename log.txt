@@ -1,0 +1,146 @@
+"""
+# Config 1, 2, 3, 4, 5 all share following pre-processing methods and hyper-parameters:
+# Pre-process: grayscale, normalization
+X_train_gray mean: 82.677589037
+X_valid_gray mean: 83.5564273756
+X_test_gray mean: 82.1484603612
+X_train_normalized mean: -0.354081335648 0.515701529314
+X_valid_normalized mean: -0.347215411128 0.531148605055
+X_test_normalized mean: -0.358215153428 0.521595652937
+
+#ConvNet hyper-parameters:   
+EPOCHS = 50
+BATCH_SIZE = 128
+LEARNING_RATE = 0.001
+"""
+    
+###Config 1
+ConvNet1 Model--   
+
+CONV1:   Input = 32x32x1  Output = 28x28x6
+RELU
+MAXPOOL: Input = 28x28x6  Output = 14x14x6
+CONV2:   Input = 14x14x6  Output = 10x10x16
+RELU
+MAXPOOL: Input = 10x10x16 Output = 5x5x16
+Flatten: Input = 5x5x16   Output = 400
+FC1:     Input = 400      Output = 120
+RELU
+FC2:     Input = 120      Output = 84
+RELU
+FC3:     Input = 84       Output = 43
+
+Validation Accuracy = 0.936
+
+
+###Config 2
+ConvNet1 Model-- 
+
+CONV1:   Input = 32x32x1  Output = 28x28x16
+RELU
+MAXPOOL: Input = 28x28x16  Output = 14x14x16
+CONV2:   Input = 14x14x16  Output = 10x10x32
+RELU
+MAXPOOL: Input = 10x10x32 Output = 5x5x32
+Flatten: Input = 5x5x32   Output = 800
+FC1:     Input = 800      Output = 400
+RELU
+FC2:     Input = 400      Output = 200
+RELU
+FC3:     Input = 200       Output = 43
+
+Validation Accuracy = 0.955
+
+
+###Config 3
+#ConvNet2 Model-- 
+
+CONV1:   Input = 32x32x1  Output = 28x28x6
+RELU
+MAXPOOL: Input = 28x28x6  Output = 14x14x6
+CONV2:   Input = 14x14x6  Output = 10x10x16
+RELU
+MAXPOOL: Input = 10x10x16 Output = 5x5x16
+Flatten1: Input = 5x5x16   Output = 400
+CONV3:   Input = 5x5x16   Output = 1x1x400
+Flatten2: Input = 1x1x400 Output = 400
+Concat Flatten1 and Flatten2: Output 800
+Fully Connected: Input = 800 Output = 43
+
+Validation Accuracy = 0.925   
+
+
+###Config 4 (config3 + dropout)
+#ConvNet2 Model--
+
+CONV1:   Input = 32x32x1  Output = 28x28x6
+RELU
+MAXPOOL: Input = 28x28x6  Output = 14x14x6
+CONV2:   Input = 14x14x6  Output = 10x10x16
+RELU
+MAXPOOL: Input = 10x10x16 Output = 5x5x16
+Flatten1: Input = 5x5x16   Output = 400
+CONV3:   Input = 5x5x16   Output = 1x1x400
+Flatten2: Input = 1x1x400 Output = 400
+Concat Flatten1 and Flatten2: Output 800
+Dropout: keep_prob = 0.5
+Fully Connected: Input = 800 Output = 43
+
+Validation Accuracy = 0.943
+
+###Config 5 (config2 + dropout)
+ConvNet1 Model-- 
+
+CONV1:   Input = 32x32x1  Output = 28x28x16
+RELU
+MAXPOOL: Input = 28x28x16  Output = 14x14x16
+CONV2:   Input = 14x14x16  Output = 10x10x32
+RELU
+MAXPOOL: Input = 10x10x32 Output = 5x5x32
+Flatten: Input = 5x5x32   Output = 800
+Dropout: keep_prob = 0.5
+FC1:     Input = 800      Output = 400
+RELU
+FC2:     Input = 400      Output = 200
+RELU
+FC3:     Input = 200       Output = 43
+
+Validation Accuracy = 0.937
+
+
+###Config 6 (config2 + augmented data pre-processing)
+Augmented data pre-processing --
+1. Grayscale
+2. Histogram equalization
+3. Normalization
+
+ConvNet1 Model-- 
+
+CONV1:   Input = 32x32x1  Output = 28x28x16
+RELU
+MAXPOOL: Input = 28x28x16  Output = 14x14x16
+CONV2:   Input = 14x14x16  Output = 10x10x32
+RELU
+MAXPOOL: Input = 10x10x32 Output = 5x5x32
+Flatten: Input = 5x5x32   Output = 800
+FC1:     Input = 800      Output = 400
+RELU
+FC2:     Input = 400      Output = 200
+RELU
+FC3:     Input = 200       Output = 43
+
+Validation Accuracy = 0.958
+
+#Conclusion: 
+1.Best model is config6. 
+2.Increase depth of convolutional layer helps. (Config1 -> Config2)
+3.Dropout works for ConvNet2, it helps to boost validation accuracy. (Config3 - > Config 4)
+4.Dropout doesn't help for ConvNet1. (Config 2 -> Config 5)
+5. Augmentation on data pre-processing helps increasing validation accuracy.
+(config2 -> Config6)
+
+###Config 7 (Config 6 change learning rate to 0.0009)
+
+Validation Accuracy = 0.963
+
+Test Accuracy = 0.940
