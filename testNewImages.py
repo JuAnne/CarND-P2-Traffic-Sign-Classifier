@@ -20,7 +20,7 @@ for i, image in enumerate(os.listdir('new_test_images/')):
     axes[i].imshow(cv2.cvtColor(test_image, cv2.COLOR_BGR2RGB))
     test_images.append(test_image)
     
-plt.show()    
+#plt.show()    
 test_images = np.asarray(test_images)
 
 test_images_gray = np.zeros([len(test_images),32,32,1])
@@ -35,7 +35,7 @@ for i in range(5):
     # Normalize
     test_images_normalized[i] = (test_images_normalized[i] -128) /128
     plt.imshow(test_images_normalized[i].squeeze(), cmap = 'gray')
-    plt.show()
+    #plt.show()
 print('test_images_normalized shape:', test_images_normalized.shape)
 
 
