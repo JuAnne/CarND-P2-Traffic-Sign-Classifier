@@ -145,7 +145,7 @@ def ConvNet(x):
     #  Activation.
     conv2 = tf.nn.relu(conv2)
 
-    # Pooling. Input = 10x10xconv_depth2. Output = 5x5xconv_depth1.
+    # Pooling. Input = 10x10xconv_depth2. Output = 5x5xconv_depth2.
     conv2 = tf.nn.max_pool(conv2, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='VALID')
 
     # Flatten. Input = 5x5xconv_depth2. Output = 5*5*conv_depth2.
